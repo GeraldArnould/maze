@@ -10,7 +10,7 @@ class Cell:
         self._p2 = p2
         self._win = win
 
-    def draw(self, fill_color):
+    def draw(self, fill_color="black"):
         # create missing top right and bottom left corners
         p3 = Point(self._p2.x, self._p1.y)
         p4 = Point(self._p1.x, self._p2.y)
