@@ -1,4 +1,5 @@
-from ui import Cell, Line, Point, Window
+from ui import Line, Point, Window
+from cell import Cell
 
 def main():
     win = Window(800, 600)
