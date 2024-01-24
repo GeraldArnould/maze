@@ -56,16 +56,21 @@ class Maze:
                 break
             else:
                 direction = random.randint(0, len(to_visit) - 1)
-                if to_visit[direction][2] == "left":
+                to = to_visit[direction]
+                if to[2] == "left":
                     self._cells[i][j].has_left_wall = False
-                elif to_visit[direction][2] == "top":
+                    self._cells[to[0]][to[1]].has_right_wall = False
+                elif to[2] == "top":
                     self._cells[i][j].has_top_wall = False
-                elif to_visit[direction][2] == "right":
+                    self._cells[to[0]][to[1]].has_bottom_wall = False
+                elif to[2] == "right":
                     self._cells[i][j].has_right_wall = False
-                elif to_visit[direction][2] == "bottom":
+                    self._cells[to[0]][to[1]].has_left_wall = False
+                elif to[2] == "bottom":
                     self._cells[i][j].has_bottom_wall = False
+                    self._cells[to[0]][to[1]].has_top_wall = False
                 self._draw_cell(i, j)
-                self._break_walls_r(to_visit[direction][0], to_visit[direction][1])
+                self._break_walls_r(to[0], to[1])
 
     def _reset_cells_visited(self):
         for i in range(len(self._cells)):
