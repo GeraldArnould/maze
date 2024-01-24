@@ -19,6 +19,9 @@ class Window:
     def draw_cell(self, cell, fill_color):
         cell.draw(self.__canvas, fill_color)
 
+    def draw_path(self, from_cell, to_cell, undo=False):
+        from_cell.draw_move(to_cell, self.__canvas, undo)
+
     def wait_for_close(self):
         self.__running = True
         while self.__running:
@@ -66,3 +69,15 @@ class Cell:
             Line(self._p2, p4).draw(canvas, fill_color)
         if self.has_left_wall:
             Line(p4, self._p1).draw(canvas, fill_color)
+
+    def middle(self):
+        return Point(
+            int((self._p1.x + self._p2.x) / 2),
+            int((self._p1.y + self._p2.y) / 2)
+        )
+
+    def draw_move(self, to_cell, canvas, undo=False):
+        mid_self = self.middle()
+        mid_to = to_cell.middle()
+        fill_color = "gray" if undo else "red"
+        Line(mid_self, mid_to).draw(canvas, fill_color)

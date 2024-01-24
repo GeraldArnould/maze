@@ -32,12 +32,19 @@ def main():
     scaling = 75
     # avoid starting drawing at (0, 0)
     margin = 10
+    # holds the created cells for further drawing later
+    cell_c = []
 
     for (p1, p2) in cells:
         point1 = Point(margin + p1[0] * scaling, margin + p1[1] * scaling)
         point2 = Point(margin + p2[0] * scaling, margin + p2[1] * scaling)
         cell = Cell(point1, point2)
+        cell_c.append(cell)
         win.draw_cell(cell, "black")
+
+    # draw some paths between cells
+    for i in range(1, len(cell_c)):
+        win.draw_path(cell_c[i - 1], cell_c[i], undo=True if i % 2 == 0 else False)
 
     win.wait_for_close()
 
