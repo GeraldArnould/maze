@@ -1,3 +1,4 @@
+from maze import Maze
 from ui import Line, Point, Window
 from cell import Cell
 
@@ -5,8 +6,9 @@ def main():
     win = Window(800, 600)
 
     # test_draw_lines(win)
-    test_draw_cells(win)
-    test_draw_paths(win)
+    # test_draw_cells(win)
+    # test_draw_paths(win)
+    test_draw_maze(win)
 
     win.wait_for_close()
 
@@ -58,6 +60,9 @@ def test_draw_paths(win):
     # draw some paths between cells
     for i in range(1, len(cells)):
         cells[i - 1].draw_move(cells[i], undo=True if i % 2 == 0 else False)
+
+def test_draw_maze(win):
+    maze = Maze(10, 10, 9, 6, 20, 20, win)
 
 if __name__ == "__main__":
     main()
