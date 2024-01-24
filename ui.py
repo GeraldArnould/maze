@@ -16,12 +16,6 @@ class Window:
     def draw_line(self, l, fill_color):
         l.draw(self.__canvas, fill_color)
 
-    def draw_cell(self, cell, fill_color):
-        cell.draw(self.__canvas, fill_color)
-
-    def draw_path(self, from_cell, to_cell, undo=False):
-        from_cell.draw_move(to_cell, self.__canvas, undo)
-
     def wait_for_close(self):
         self.__running = True
         while self.__running:

@@ -39,13 +39,13 @@ def main():
     for (p1, p2) in cells:
         point1 = Point(margin + p1[0] * scaling, margin + p1[1] * scaling)
         point2 = Point(margin + p2[0] * scaling, margin + p2[1] * scaling)
-        cell = Cell(point1, point2)
+        cell = Cell(point1, point2, win)
         cell_c.append(cell)
-        win.draw_cell(cell, "black")
+        cell.draw(fill_color="black")
 
     # draw some paths between cells
     for i in range(1, len(cell_c)):
-        win.draw_path(cell_c[i - 1], cell_c[i], undo=True if i % 2 == 0 else False)
+        cell_c[i - 1].draw_move(cell_c[i], undo=True if i % 2 == 0 else False)
 
     win.wait_for_close()
 
