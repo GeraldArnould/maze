@@ -1,4 +1,4 @@
-from ui import Line, Point, Window
+from ui import Cell, Line, Point, Window
 
 def main():
     win = Window(800, 600)
@@ -19,6 +19,25 @@ def main():
         p2 = Point(line[1][0] * scaling, line[1][1] * scaling)
         l = Line(p1, p2)
         win.draw_line(l, "black")
+
+    # DEBUG: Draw some cells
+    cells = [
+        [(1, 0), (2, 1)],
+        [(2, 1), (3, 2)],
+        [(0, 2), (1, 3)],
+        [(1, 2), (2, 3)],
+        [(2, 2), (3, 3)],
+    ]
+    # scale points values to show something in the window
+    scaling = 75
+    # avoid starting drawing at (0, 0)
+    margin = 10
+
+    for (p1, p2) in cells:
+        point1 = Point(margin + p1[0] * scaling, margin + p1[1] * scaling)
+        point2 = Point(margin + p2[0] * scaling, margin + p2[1] * scaling)
+        cell = Cell(point1, point2)
+        win.draw_cell(cell, "black")
 
     win.wait_for_close()
 
