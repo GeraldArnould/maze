@@ -25,6 +25,67 @@ class Maze:
         self._break_entrance_and_exit()
         self._break_walls_r(0, 0)
         self._reset_cells_visited()
+        # print(f"Solved? {self.solve()}")
+
+    def solve(self):
+        return self._solve_r(0, 0)
+
+    def _solve_r(self, i, j):
+        self._animate()
+        self._cells[i][j].visited = True
+        # print(f"DEBUG: visiting cell [{i}][{j}]")
+        # print("DEBUG: walls")
+        # print(f"DEBUG: * top: {self._cells[i][j].has_top_wall}")
+        # print(f"DEBUG: * bottom: {self._cells[i][j].has_bottom_wall}")
+        # print(f"DEBUG: * left: {self._cells[i][j].has_left_wall}")
+        # print(f"DEBUG: * right: {self._cells[i][j].has_right_wall}")
+        if i == len(self._cells) - 1 and j == len(self._cells[0]) - 1:
+            return True
+        if i > 0:
+            src = self._cells[i][j]
+            to = self._cells[i - 1][j]
+            if not to.visited \
+                and not to.has_right_wall \
+                and not src.has_left_wall:
+                src.draw_move(to)
+                if self._solve_r(i - 1, j):
+                    return True
+                else:
+                    src.draw_move(to, undo=True)
+        if j > 0:
+            src = self._cells[i][j]
+            to = self._cells[i][j - 1]
+            if not to.visited \
+                and not to.has_bottom_wall \
+                and not src.has_top_wall:
+                src.draw_move(to)
+                if self._solve_r(i, j - 1):
+                    return True
+                else:
+                    src.draw_move(to, undo=True)
+        if i < len(self._cells) - 1:
+            src = self._cells[i][j]
+            to = self._cells[i + 1][j]
+            if not to.visited \
+                and not to.has_left_wall \
+                and not src.has_right_wall:
+                src.draw_move(to)
+                if self._solve_r(i + 1, j):
+                    return True
+                else:
+                    src.draw_move(to, undo=True)
+        if j < len(self._cells[0]) - 1:
+            src = self._cells[i][j]
+            to = self._cells[i][j + 1]
+            if not to.visited \
+                and not to.has_top_wall \
+                and not src.has_bottom_wall:
+                src.draw_move(to)
+                if self._solve_r(i, j + 1):
+                    return True
+                else:
+                    src.draw_move(to, undo=True)
+        return False
 
     def _break_entrance_and_exit(self):
         maze_entrance = (0, 0)
@@ -120,4 +181,4 @@ class Maze:
             return
 
         self._win.redraw()
-        time.sleep(0.01)
+        time.sleep(0.001)

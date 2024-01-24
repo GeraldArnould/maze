@@ -8,7 +8,12 @@ def main():
     # test_draw_lines(win)
     # test_draw_cells(win)
     # test_draw_paths(win)
-    test_draw_maze(win)
+    m1 = test_draw_maze(win, cols=35, rows=50)
+    if m1.solve():
+        print("Maze solved!")
+    else:
+        print("Could not find a solution")
+
 
     win.wait_for_close()
 
@@ -61,8 +66,8 @@ def test_draw_paths(win):
     for i in range(1, len(cells)):
         cells[i - 1].draw_move(cells[i], undo=True if i % 2 == 0 else False)
 
-def test_draw_maze(win):
-    maze = Maze(10, 10, 9, 6, 20, 20, win)
+def test_draw_maze(win, cols=10, rows=20):
+    return Maze(10, 10, rows, cols, 20, 20, win)
 
 if __name__ == "__main__":
     main()
