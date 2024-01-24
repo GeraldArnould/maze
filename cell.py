@@ -24,17 +24,36 @@ class Cell:
             self._win.draw_line(
 				Line(self._p1, p3), fill_color
 			)
+        else:
+            self._win.draw_line(
+				Line(self._p1, p3), "white"
+			)
+
         if self.has_right_wall:
             self._win.draw_line(
 				Line(p3, self._p2), fill_color
 			)
+        else:
+            self._win.draw_line(
+				Line(p3, self._p2), "white"
+			)
+
         if self.has_bottom_wall:
             self._win.draw_line(
 				Line(self._p2, p4), fill_color
 			)
+        else:
+            self._win.draw_line(
+				Line(self._p2, p4), "white"
+			)
+
         if self.has_left_wall:
             self._win.draw_line(
 				Line(p4, self._p1), fill_color
+        )
+        else:
+            self._win.draw_line(
+				Line(p4, self._p1), "white"
         )
 
     def middle(self):

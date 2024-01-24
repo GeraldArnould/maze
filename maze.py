@@ -20,6 +20,15 @@ class Maze:
         self._cells = []
 
         self._create_cells()
+        self._break_entrance_and_exit()
+
+    def _break_entrance_and_exit(self):
+        maze_entrance = (0, 0)
+        maze_exit = (self._num_rows - 1, self._num_cols - 1)
+        self._cells[maze_entrance[1]][maze_entrance[0]].has_top_wall = False
+        self._draw_cell(maze_entrance[1], maze_entrance[0])
+        self._cells[maze_exit[1]][maze_exit[0]].has_bottom_wall = False
+        self._draw_cell(maze_exit[1], maze_exit[0])
 
     def _create_cells(self):
         for i in range(self._num_cols):
