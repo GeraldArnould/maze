@@ -1,13 +1,14 @@
 from ui import Point, Line
 
 class Cell:
-    def __init__(self, p1, p2, win=None):
+    def __init__(self, p1, p2, visited=False, win=None):
         self.has_left_wall = True
         self.has_right_wall = True
         self.has_top_wall = True
         self.has_bottom_wall = True
         self._p1 = p1
         self._p2 = p2
+        self.visited = visited
         self._win = win
 
     def draw(self, fill_color="black"):
