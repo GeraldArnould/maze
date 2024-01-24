@@ -3,11 +3,17 @@ from ui import Point
 from cell import Cell
 
 class Maze:
-    def __init__(self, x1, y1, num_rows, num_cols, cell_size_x, cell_size_y, win):
+    def __init__(self, x1, y1, num_rows, num_cols, cell_size_x, cell_size_y, win=None):
         self._x1 = x1
         self._y1 = y1
-        self._num_rows = num_rows
-        self._num_cols = num_cols
+        if num_rows <= 0:
+            raise Exception(f"cannot create a maze with {num_rows} row(s)")
+        else:
+            self._num_rows = num_rows
+        if num_cols <= 0:
+            raise Exception(f"cannot create a maze with {num_cols} column(s)")
+        else:
+            self._num_cols = num_cols
         self._cell_size_x = cell_size_x
         self._cell_size_y = cell_size_y
         self._win = win
@@ -36,6 +42,10 @@ class Maze:
                 self._draw_cell(i, j)
 
     def _draw_cell(self, i, j):
+        # do not draw if no window is attached
+        if self._win == None:
+            return
+
         # i = column, j = row
         p1 = Point(
             self._x1 + i * self._cell_size_x,
@@ -49,5 +59,9 @@ class Maze:
         self._animate()
 
     def _animate(self):
+        # do not draw if no window is attached
+        if self._win == None:
+            return
+
         self._win.redraw()
-        time.sleep(0.05)
+        time.sleep(0.01)

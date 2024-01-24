@@ -1,7 +1,7 @@
 from ui import Point, Line
 
 class Cell:
-    def __init__(self, p1, p2, win):
+    def __init__(self, p1, p2, win=None):
         self.has_left_wall = True
         self.has_right_wall = True
         self.has_top_wall = True
@@ -11,6 +11,10 @@ class Cell:
         self._win = win
 
     def draw(self, fill_color="black"):
+        # do not draw if no window is attached
+        if self._win == None:
+            return
+
         # create missing top right and bottom left corners
         p3 = Point(self._p2.x, self._p1.y)
         p4 = Point(self._p1.x, self._p2.y)
@@ -40,6 +44,10 @@ class Cell:
         )
 
     def draw_move(self, to_cell, undo=False):
+        # do not draw if no window is attached
+        if self._win == None:
+            return
+
         mid_self = self.middle()
         mid_to = to_cell.middle()
         fill_color = "gray" if undo else "red"
